@@ -1,8 +1,22 @@
 import cv2
 import numpy as np
+import sys
 
-# URL of the stream
-url = "http://192.168.201.87:8080/?action=stream"
+# Function to parse command line arguments
+def parse_args():
+    if len(sys.argv) != 2:
+        print("Usage: python script.py <IP_address>")
+        sys.exit(1)
+    return sys.argv[1]
+
+# Base URL of the stream (prefix)
+base_url = "http://{}:8080/?action=stream"
+
+# Get IP address from command line argument
+ip_address = parse_args()
+
+# Construct the full URL
+url = base_url.format(ip_address)
 
 # OpenCV VideoCapture object
 cap = cv2.VideoCapture(url)
